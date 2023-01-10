@@ -120,6 +120,7 @@ namespace AirlineReservations.Controllers
                 booking.DepartureTime = getdata.TimeFrom;
                 booking.TicketsId = id;
                 booking.Seats = Seat;
+                booking.TicketStatus = "Pending";
                 booking.userId = userId;
                 booking.TicketPrice = Price;
                 _context.Add(booking);
@@ -130,8 +131,6 @@ namespace AirlineReservations.Controllers
                 if (user != null)
                 {
                     await _userManager.SetPhoneNumberAsync(user, PhoneNumber);
-
-                    
                     user.Adress = Adress;
                     user.City = City;
                     user.Name = Name;
@@ -148,6 +147,7 @@ namespace AirlineReservations.Controllers
                     
                     _context.Update(getTicketSeats);
                     _context.SaveChanges();
+                    return RedirectToAction("ConfirmationTicket");
                 }
                 else
                 {
@@ -163,43 +163,43 @@ namespace AirlineReservations.Controllers
                 booking.DepartureTime = getdata.TimeFrom;
                 booking.TicketsId = id;
                 booking.Seats = Seat;
+                booking.TicketStatus = "Pending";
                 booking.userId = userId;
                 booking.TicketPrice = Price;
                 _context.Add(booking);
                 int chek= _context.SaveChanges();
-
-
                 var user = await _userManager.FindByIdAsync(userId);
                 if (user != null)
                 {
                     await _userManager.SetPhoneNumberAsync(user, PhoneNumber);
-
-
                     user.Adress = Adress;
                     user.City = City;
                     user.Name = Name;
 
                     await _userManager.UpdateAsync(user);
                 }
-
                 if (chek == 1)
                 {
                     var getTicketSeats = _context.Tickets.Find(id);
-
                     getTicketSeats.TotalSeata = getTicketSeats.TotalSeata - Seat;
 
                     _context.Update(getTicketSeats);
                     _context.SaveChanges();
 
-                }
-                else
-                {
-                    return View();
-                }
+                    return RedirectToAction("ConfirmationTicket");
 
-
+                } 
             }
+            return View();
+        }
 
+        public IActionResult ConfirmationTicket()
+        {
+            return View();
+        }
+
+        public IActionResult UserHistory()
+        {
             return View();
         }
     }

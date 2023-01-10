@@ -31,5 +31,7 @@ namespace AirlineReservations.Models
         public string userId { get; set; }
 
         public int TicketPrice { get; set; }
+
+        public string TicketStatus { get; set; }
     }
 }

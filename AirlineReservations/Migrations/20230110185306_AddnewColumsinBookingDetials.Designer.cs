@@ -4,6 +4,7 @@ using AirlineReservations.Areas.Identity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AirlineReservations.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230110185306_AddnewColumsinBookingDetials")]
+    partial class AddnewColumsinBookingDetials
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -171,6 +173,27 @@ namespace AirlineReservations.Migrations
                     b.HasIndex("TicketsId");
 
                     b.ToTable("bookingDetails");
+                });
+
+            modelBuilder.Entity("AirlineReservations.Models.BookingMaster", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("BookindDetailID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookindDetailID");
+
+                    b.ToTable("bookingMasters");
                 });
 
             modelBuilder.Entity("AirlineReservations.Models.CityRoute", b =>
@@ -383,6 +406,17 @@ namespace AirlineReservations.Migrations
                         .IsRequired();
 
                     b.Navigation("Tickets");
+                });
+
+            modelBuilder.Entity("AirlineReservations.Models.BookingMaster", b =>
+                {
+                    b.HasOne("AirlineReservations.Models.BookingDetails", "bookingDetails")
+                        .WithMany()
+                        .HasForeignKey("BookindDetailID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("bookingDetails");
                 });
 
             modelBuilder.Entity("AirlineReservations.Models.CityRoute", b =>

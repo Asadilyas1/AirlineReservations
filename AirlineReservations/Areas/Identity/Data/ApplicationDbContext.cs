@@ -31,7 +31,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 
     public DbSet<BookingDetails> bookingDetails { get; set; }
 
-    public DbSet<BookingMaster> bookingMasters { get; set; }
+    
 
     public DbSet<CityRoute> routes { get; set; }
 
