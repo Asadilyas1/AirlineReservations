@@ -1,0 +1,49 @@
+﻿@model IEnumerable<AirlineReservations.ViewModel.PassangerViewModel>
+
+<br />
+<br />
+
+<div class="container">
+   
+    <table class="table table-hover">
+        <tr class="text-center" style="border:double">
+
+            <th>Airline name</th>
+            <th>Ticket type</th>
+            <th>City From</th>
+            <th>City To</th>
+            <th>Avaiable Seats</th>
+            <th>Price</th>
+            <th>Ticket From</th>
+            <th>Tieckt To</th>
+            <th>Time From</th>
+            <th>Time To</th>
+            <th>Action</th>
+            
+        </tr>
+        @foreach(var item in Model)
+            {
+
+            <tr class="text-center">
+                <td>@item.AirlineName</td>
+                <td>@item.AirlineClassType</td>
+                <td>@item.AirlineCityRouteFrom</td>
+                <td>@item.AirlineCityRouteTo</td>
+                <td>@item.TicketPrice</td>
+                <td>@item.TotalSeat</td>
+                <td>@item.TicketFrom</td>
+                <td>@item.TicketTo</td>
+                <td>@item.TicketTimeFrom</td>
+                <td>@item.TicketTimeTo</td>
+                <td>
+                    <a  class="btn btn-warning" asp-action="" asp-route-id="@item.TicketID">Buy</a>
+                </td>
+            </tr>
+            }
+
+        
+
+
+    </table>
+
+</div>

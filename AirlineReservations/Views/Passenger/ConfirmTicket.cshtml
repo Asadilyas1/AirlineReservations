@@ -1,0 +1,103 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using AirlineReservations.Areas.Identity.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@model AirlineReservations.ViewModel.ConfirmViewModel
+
+<br />
+
+<div class="container">
+    <div class="col-md-12">
+
+        <div class="row">
+
+            <div class="col-md-6 offset-3">
+
+                <div class="card">
+                    <div class="card-header">
+                        <p>
+                            City Route From : <b name="fromcity"> @Model.RouteFromCity</b> To <b> @Model.RoutetoCity</b>
+                            <br />
+                            Ticket From : <b> @Model.TicketFrom</b> To <b> @Model.TicketTo</b>
+                            <br />
+                            Journey Start Date: <b>@Model.TimeFrom</b>
+                            <br />
+                            Journey End Date : <b>@Model.TimeTo</b>
+                        </p>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <p>
+                            Class/Type : @Model.PassangerClass
+                        </p>
+                        <form action="/Passenger/UserConfirmTicket" method="post">
+                            <input type="hidden" name="id" value="@Model.ticketid" />
+                            <label> Return :</label>
+                            <input type="radio" required name="Price" value="@Model.singlePrice " />@Model.singlePrice $
+
+                            <label style="margin-left:50px"> Two Way :</label>
+                            <input type="radio" name="Price" value="@Model.TwoWayPrice" /> @Model.TwoWayPrice $
+                            <br />
+                            <br />
+                            <div class="card-header">
+                                <h5 class="text-center">Pessanger Form</h5>
+                            </div>
+                            <div class="row">
+
+                                <div class="col">
+                                    <label>Name :</label>
+
+                                    <input required type="text" class="form-control" placeholder="Enter your name" name="Name" autocomplete="off" />
+
+                                </div>
+                                <div class="col">
+                                    <label>Phone :</label>
+                                    <input required type="number" class="form-control" placeholder="Enter your phone" name="PhoneNumber" autocomplete="off" />
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label>Adress :</label>
+                                    <input required type="text" class="form-control" placeholder="Enter your Adress" name="Adress" autocomplete="off" />
+
+                                </div>
+                                <div class="col">
+                                    <label>City :</label>
+                                    <input required type="text" class="form-control" placeholder="Enter your City" name="City" autocomplete="off" />
+
+                                </div>
+                            </div>
+                            <label>Seats :</label>
+                            <input required type="number" class="form-control mb-3" min="1" placeholder="How many seats taken" name="Seat" />
+
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <input type="submit" class="btn btn-warning" value="ConfirmNow" />
+                            }
+                            else
+                            {
+                            <h4 class="text-warning">Please Sign First then you can proceed next</h4>
+                            }
+
+
+
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,42 @@
+﻿@model IEnumerable<AirlineReservations.Models.Airline>
+
+
+<br />
+<center>
+    <p>All Airline Avaiable</p>
+</center>
+<br />
+<br />
+<div class="container">
+   
+    <div class="col-md-12">
+
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4">
+
+                    <div class="card">
+
+                        <div class="card-group">
+
+                            <div class="card-body">
+
+                                <p class="text-center"><a style="color:black" asp-controller="Passenger" asp-action="CityAirlineRoute" asp-route-id="@item.Id">@item.AirlineName</a> </p>
+
+                            </div>
+
+                        </div>
+
+                        
+                    </div>
+                </div>
+
+            }
+            </div>
+
+
+    </div>
+    
+</div>
+

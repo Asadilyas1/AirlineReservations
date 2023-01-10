@@ -1,0 +1,35 @@
+﻿@model IEnumerable<AirlineReservations.Models.CityRoute>
+
+<br />
+<center>
+    <p>Airline City Route</p>
+</center>
+<br />
+
+<div class="container">
+    <div class="col-md-12">
+
+        <div class="row">
+
+            @foreach (var item in Model)
+            {
+                <div class="col-md-3">
+                    <div class="card">
+
+                        <div class="card-body">
+                            <h5 class="text-center">@item.RouteFromCity <----> @item.RouteToCity</h5>
+                            <center>
+                                <a class="btn btn-success" asp-action="BookingTicket" asp-controller="Passenger" asp-route-id="@item.AirlineId">Select</a>
+                            </center>
+                        </div>
+                    </div>
+
+                </div>
+            }
+
+        </div>
+        <br />
+    </div>
+
+
+</div>
