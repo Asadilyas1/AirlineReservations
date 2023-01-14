@@ -14,26 +14,26 @@
                        
                         <div class="card-header">
                              <p class="text-center">
-                                 Airline Code
-                             <b> @item.AirlineCode</b>
-                           </p>
+                                 Codul companiei aeriene
+                                 <b> @item.AirlineCode</b>
+                             </p>
                         </div>
                         <div class="card-body">
                             
                             <h4 >@item.airlineName</h4>
                             <ul>
-                                <h6> Ticket From </h6>
+                                <h6> Bilet de la </h6>
                                 <li>@item.TicketFrom</li>
-                                <h6> Ticket To </h6>
+                                <h6> Bilet pentru </h6>
                                 <li>@item.TicketTo</li>
-                                <h6>Passanger Class</h6>
+                                <h6>Clasa de pasageri</h6>
                                 <li>@item.PassangerClass</li>
-                                <h6> Ticket Avaiable</h6>
+                                <h6> Biletul disponibil</h6>
                                 <li>@item.TotalTicket </li>
                                 
-                                <h6> Time From</h6>
+                                <h6> Ora de plecare De la</h6>
                                 <li>@item.TimeFrom</li>
-                                <h6> Time To</h6>
+                                <h6> Ora de sosire De la</h6>
                                 <li>@item.TimeTo </li>
                             </ul>
                             <a class="btn btn-primary" asp-action="ConfirmTicket" asp-controller="Passenger" asp-route-id="@item.TicketId">Book Now</a>

@@ -1,0 +1,68 @@
+﻿@model IEnumerable<AirlineReservations.ViewModel.UserOrderViewModel>
+@{
+    ViewData["Title"] = "UserOrder";
+}
+
+<br />
+<br />
+<div class="container">
+    <div class="col-md-12">
+        <div class="card">
+
+            <div class="card-header">
+                <h5 class="text-center">Toate comenzile de anulare ale clienților Vă rugăm să confirmați starea</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th>
+                                Nume
+                            </th>
+                          
+                            <th>
+                                Companie aeriană
+                            </th>
+                            <th>OrașDe la</th>
+                            <th>Orașul Către</th>
+                            <th>Preț</th>
+                            <th>
+                                Bilet de la
+                            </th>
+                            <th>Bilet pentru</th>
+                            <th>Data biletului</th>
+                            <th>stare</th>
+                            @*<th>Acțiune</th>*@
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+
+                            <td>@item.UserName</td>
+                         
+                            <td>@item.AirlineName</td>
+                            <td>@item.CityFrom</td>
+                            <td>@item.cityTo</td>
+                            <td>@item.TicketPrice $</td>
+                            <td>@item.TicketFrom</td>
+
+                            <td>@item.TicketTo</td>
+                            <td>@item.TicketTimeTo</td>
+                            <td>@item.Status</td>
+                            @*<td>
+                                <a class="btn btn-warning" asp-action="ConfirmTicket" asp-route-id="@item.OrderId">A confirma</a>
+                               
+                            </td>*@
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+</div>

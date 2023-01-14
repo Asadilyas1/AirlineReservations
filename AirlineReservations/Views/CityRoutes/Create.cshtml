@@ -4,38 +4,45 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<br />
+<br />
 
-<h4>CityRoute</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="RouteFromCity" class="control-label"></label>
-                <input asp-for="RouteFromCity" class="form-control" />
-                <span asp-validation-for="RouteFromCity" class="text-danger"></span>
+<div class="container">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-5  offset-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Creați un nou traseu pentru oraș</h5>
+                    </div>
+                    <div class="card-body">
+                        <form asp-action="Create">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="RouteFromCity" class="control-label"></label>
+                                <input asp-for="RouteFromCity" placeholder="Introduceți ruta companiei aeriene din oraș" class="form-control" />
+                                <span asp-validation-for="RouteFromCity" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="RouteToCity" class="control-label"></label>
+                                <input asp-for="RouteToCity" placeholder="Introduceți ruta companiei aeriene către oraș" class="form-control" />
+                                <span asp-validation-for="RouteToCity" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="AirlineId" class="control-label"></label>
+                                <select asp-for="AirlineId" class="form-control" asp-items="ViewBag.AirlineId"></select>
+                            </div>
+                            <div class="form-group">
+                                <input style="margin-top:20px" type="submit" value="Create" class="btn btn-success" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="RouteToCity" class="control-label"></label>
-                <input asp-for="RouteToCity" class="form-control" />
-                <span asp-validation-for="RouteToCity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AirlineId" class="control-label"></label>
-                <select asp-for="AirlineId" class ="form-control" asp-items="ViewBag.AirlineId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

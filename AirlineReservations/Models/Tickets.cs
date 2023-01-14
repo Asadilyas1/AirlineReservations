@@ -32,6 +32,7 @@ namespace AirlineReservations.Models
         public int TwoWaysPrice { get; set; }
 
         //forigen key relation with airline
+        [Display(Name = "Selectați Companie aeriană")]
         public int AirlineID { get; set; }
 
         [ForeignKey("AirlineID")]

@@ -18,13 +18,13 @@
                 <div class="card">
                     <div class="card-header">
                         <p>
-                            City Route From : <b name="fromcity"> @Model.RouteFromCity</b> To <b> @Model.RoutetoCity</b>
+                            Traseul orașului De la : <b name="fromcity"> @Model.RouteFromCity</b> La <b> @Model.RoutetoCity</b>
                             <br />
-                            Ticket From : <b> @Model.TicketFrom</b> To <b> @Model.TicketTo</b>
+                            Bilet de la : <b> @Model.TicketFrom</b> La <b> @Model.TicketTo</b>
                             <br />
-                            Journey Start Date: <b>@Model.TimeFrom</b>
+                            Data de începere a călătoriei: <b>@Model.TimeFrom</b>
                             <br />
-                            Journey End Date : <b>@Model.TimeTo</b>
+                            Data de încheiere a călătoriei: <b>@Model.TimeTo</b>
                         </p>
 
                     </div>
@@ -32,7 +32,7 @@
                     <div class="card-body">
 
                         <p>
-                            Class/Type : @Model.PassangerClass
+                            Clasa/Tip : @Model.PassangerClass
                         </p>
                         <form action="/Passenger/UserConfirmTicket" method="post">
                             <input type="hidden" name="id" value="@Model.ticketid" />
@@ -44,44 +44,44 @@
                             <br />
                             <br />
                             <div class="card-header">
-                                <h5 class="text-center">Pessanger Form</h5>
+                                <h5 class="text-center">Formular pasager</h5>
                             </div>
                             <div class="row">
 
                                 <div class="col">
-                                    <label>Name :</label>
+                                    <label>Nume :</label>
 
-                                    <input required type="text" class="form-control" placeholder="Enter your name" name="Name" autocomplete="off" />
+                                    <input required type="text" class="form-control" placeholder="Introdu numele tau" name="Name" autocomplete="off" />
 
                                 </div>
                                 <div class="col">
-                                    <label>Phone </label>
-                                    <input required type="number" class="form-control" placeholder="Enter your phone" name="PhoneNumber" autocomplete="off" />
+                                    <label>Telefon </label>
+                                    <input required type="number" class="form-control" placeholder="Introduceți telefonul dvs" name="PhoneNumber" autocomplete="off" />
 
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <label>Adress</label>
-                                    <input required type="text" class="form-control" placeholder="Enter your Adress" name="Adress" autocomplete="off" />
+                                    <label>Adresa</label>
+                                    <input required type="text" class="form-control" placeholder="Introduceți adresa dvs" name="Adress" autocomplete="off" />
 
                                 </div>
                                 <div class="col">
-                                    <label>City :</label>
-                                    <input required type="text" class="form-control" placeholder="Enter your City" name="City" autocomplete="off" />
+                                    <label>Oraș :</label>
+                                    <input required type="text" class="form-control" placeholder="Introdu orașul tău" name="City" autocomplete="off" />
 
                                 </div>
                             </div>
-                            <label>Seats</label>
-                            <input required type="number" class="form-control mb-3" min="1" placeholder="How many seats taken" name="Seat" />
+                            <label>Scaune :</label>
+                            <input required type="number" class="form-control mb-3" min="1" placeholder="Câte locuri ocupate" name="Seat" />
 
                             @if (SignInManager.IsSignedIn(User))
                             {
-                                <input type="submit" class="btn btn-warning" value="ConfirmNow" />
+                                <input type="submit" class="btn btn-warning" value="Confirmați acum" />
                             }
                             else
                             {
-                            <h4 class="text-warning">Please Sign First then you can proceed next</h4>
+                            <h4 class="text-warning">Vă rugăm să semnați mai întâi, apoi puteți continua</h4>
                             }
 
 

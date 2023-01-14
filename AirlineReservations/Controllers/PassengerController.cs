@@ -1,6 +1,7 @@
 ﻿using AirlineReservations.Areas.Identity.Data;
 using AirlineReservations.Models;
 using AirlineReservations.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Operations;
@@ -8,7 +9,7 @@ using Microsoft.CodeAnalysis.Operations;
 namespace AirlineReservations.Controllers
 {
 
-   
+    [Authorize(Roles ="Customer")]
     public class PassengerController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -18,34 +19,6 @@ namespace AirlineReservations.Controllers
             _context=context;
             _userManager=userManager;
         }
-        public IActionResult Index()
-        {
-            var getDate = (from airline in _context.airlines
-                           join tick in _context.Tickets on airline.Id equals tick.AirlineID
-                           join booking in _context.bookingClass on tick.ClassTypeID equals booking.Id
-                           join route in _context.routes on airline.Id equals route.AirlineId
-                           select new PassangerViewModel
-                           {
-                               AirlineName=airline.AirlineName,
-                               AirlineClassType=booking.ClassTpye,
-                               AirlineCityRouteFrom=route.RouteFromCity,
-                               AirlineCityRouteTo=route.RouteToCity,
-                               TotalSeat=tick.TotalSeata,
-                               AirlineCode=airline.Airlinecode,
-                               TicketPrice=tick.SinglePrice,
-                               TicketFrom=tick.TicketFrom,
-                               TicketTo=tick.TicletTo,
-                               TicketTimeFrom=tick.TimeFrom,
-                               TicketTimeTo=tick.TimeTo,
-                               TicketID=tick.Id
-                           }).ToList();
-
-
-            return View(getDate);
-        }
-
-      
-
         public IActionResult Airline()
         {
             var ShowAirline = _context.airlines.ToList();
@@ -55,11 +28,15 @@ namespace AirlineReservations.Controllers
         public IActionResult CityAirlineRoute(int id)
         {
             var GetRouteDetils = _context.routes.Where(x => x.AirlineId == id).ToList();
+            
             return View(GetRouteDetils);
         }
-
-        public IActionResult BookingTicket(int?id)
+        
+       
+        public IActionResult BookingTicket(int?id,int Rid)
         {
+            TempData["ID"] =  Rid;
+
             var MatchAirline= (from ticket in _context.Tickets 
                                where ticket.AirlineID == id select new TicketViewModel
                                {
@@ -105,7 +82,9 @@ namespace AirlineReservations.Controllers
         {
            
             BookingDetails booking = new BookingDetails();
+
            
+
             string userId = _userManager.GetUserId(User);
 
             var getdata = _context.Tickets.Where(x => x.Id == id).FirstOrDefault();
@@ -123,38 +102,33 @@ namespace AirlineReservations.Controllers
                 booking.TicketStatus = "Pending";
                 booking.userId = userId;
                 booking.TicketPrice = Price;
+               
+                booking.RouteId = Convert.ToInt32(TempData["ID"]);
+
                 _context.Add(booking);
+               
+               int SaveCheck=  _context.SaveChanges();
 
-                int checkConfirmation=  _context.SaveChanges();
-
-                var user =  await _userManager.FindByIdAsync(userId);
-                if (user != null)
+                if(SaveCheck==1)
                 {
+                    TempData["ID"] = null;
+                }
+                    var user =  await _userManager.FindByIdAsync(userId);
                     await _userManager.SetPhoneNumberAsync(user, PhoneNumber);
                     user.Adress = Adress;
                     user.City = City;
                     user.Name = Name;
-              
                     await _userManager.UpdateAsync(user);
-                }
-
-
-                if (checkConfirmation == 1)
-                {
                     var getTicketSeats = _context.Tickets.Find(id);
 
                     getTicketSeats.TotalSeata = getTicketSeats.TotalSeata - Seat;
                     
                     _context.Update(getTicketSeats);
                     _context.SaveChanges();
-                    return RedirectToAction("ConfirmationTicket");
-                }
-                else
-                {
-                    return View();
-                }
 
+                    return RedirectToAction("TicketConfirmation");
             }
+           
             else
             {
                 booking.From = getdata.TicketFrom;
@@ -166,41 +140,80 @@ namespace AirlineReservations.Controllers
                 booking.TicketStatus = "Pending";
                 booking.userId = userId;
                 booking.TicketPrice = Price;
+                booking.RouteId = Convert.ToInt32(TempData["ID"]);
                 _context.Add(booking);
-                int chek= _context.SaveChanges();
-                var user = await _userManager.FindByIdAsync(userId);
-                if (user != null)
+               int SavedCheck=  _context.SaveChanges();
+                if(SavedCheck==1)
                 {
+                    TempData["ID"] = null;
+                }
+                var user = await _userManager.FindByIdAsync(userId);
+                
                     await _userManager.SetPhoneNumberAsync(user, PhoneNumber);
                     user.Adress = Adress;
                     user.City = City;
                     user.Name = Name;
-
                     await _userManager.UpdateAsync(user);
-                }
-                if (chek == 1)
-                {
                     var getTicketSeats = _context.Tickets.Find(id);
                     getTicketSeats.TotalSeata = getTicketSeats.TotalSeata - Seat;
-
                     _context.Update(getTicketSeats);
                     _context.SaveChanges();
 
-                    return RedirectToAction("ConfirmationTicket");
-
-                } 
+                    return RedirectToAction("TicketConfirmation");
             }
-            return View();
+
+           
         }
 
-        public IActionResult ConfirmationTicket()
+        public IActionResult TicketConfirmation()
         {
             return View();
         }
 
         public IActionResult UserHistory()
         {
-            return View();
+            string userId = _userManager.GetUserId(User);
+
+
+            var getOrder = (from user in _context.Users
+                            join bokingDetail in _context.bookingDetails on user.Id equals bokingDetail.userId
+                            join tick in _context.Tickets on bokingDetail.TicketsId equals tick.Id
+                            join airline in _context.airlines on tick.AirlineID equals airline.Id
+                            where bokingDetail.userId == userId
+                            select new PassangerViewModel
+                            {
+                                PassengerName=user.Name,
+                                AirlineName=airline.AirlineName,
+                                TicketFrom=tick.TicketFrom,
+                                TicketPrice=bokingDetail.TicketPrice,
+                                TicketTimeTo=bokingDetail.ReturnTime,
+                                TicketTo=tick.TicletTo,
+                                AirlineClassType=tick.bookingClass.ClassTpye,
+                                BookingDetialsId = bokingDetail.BookingID,
+                                Status = bokingDetail.TicketStatus
+                            }).ToList();
+
+
+           
+            return View(getOrder);
+        }
+
+        public IActionResult CancelOrder(int id)
+        {
+            var getOrderDetails=_context.bookingDetails.Find(id);
+            if (getOrderDetails == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                getOrderDetails.TicketStatus = "Cancel";
+                _context.bookingDetails.Update(getOrderDetails);
+                _context.SaveChanges();
+                return RedirectToAction("UserHistory");
+            }
+
+           
         }
     }
 }

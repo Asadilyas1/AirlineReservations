@@ -15,16 +15,16 @@ namespace AirlineReservations.Areas.Identity.Data
         {
             ApplicationUser defaultAdmin = new ApplicationUser
             {
-                UserName = "admin123@gmail.com",
-                Email = "admin123@gmail.com",
+                UserName = "Admin123@gmail.com",
+                Email = "Admin123@gmail.com",
                 EmailConfirmed = true,
-                Name = "Asad",
-                City = "gujranwala",
-                Adress = "Pakistan,Gujranwala"
+                Name = "Demo",
+                City = "London",
+                Adress = "London,Uk"
             };
             if (userManager.Users.All(u => u.Id != defaultAdmin.Id))
             {
-                var user = await userManager.CreateAsync(defaultAdmin, "Pakistan123@");
+                var user = await userManager.CreateAsync(defaultAdmin, "Admin123@");
 
                 if (user.Succeeded)
                 {

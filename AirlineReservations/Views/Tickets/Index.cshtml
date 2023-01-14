@@ -3,81 +3,101 @@
 @{
     ViewData["Title"] = "Index";
 }
+<br />
+<br />
+<h5 class="text-center">
+    Lista biletelor de avion
+</h5>
+<br />
+<div class="container">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="card">
 
-<h1>Index</h1>
+                    <div class="card-header">
+                        <a class="btn btn-success mb-2" asp-action="Create">Creaza nou</a>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-hover table-bordered">
+                            <thead >
+                                <tr class="text-center">
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TicketFrom)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TicletTo)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TimeFrom)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TimeTo)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TotalSeata)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.SinglePrice)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TwoWaysPrice)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Airline)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.bookingClass)
+                                    </th>
+                                    <th>Acțiune</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="text-center">
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TicketFrom)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TicletTo)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TimeFrom)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TimeTo)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TotalSeata)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SinglePrice)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TwoWaysPrice)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Airline.AirlineName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.bookingClass.ClassTpye)
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Editați</a> 
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.TicketFrom)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TicletTo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TimeFrom)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TimeTo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TotalSeata)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SinglePrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TwoWaysPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Airline)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.bookingClass)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TicketFrom)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TicletTo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TimeFrom)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TimeTo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalSeata)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SinglePrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TwoWaysPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Airline.AirlineName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.bookingClass.ClassTpye)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-               
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Șterge</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

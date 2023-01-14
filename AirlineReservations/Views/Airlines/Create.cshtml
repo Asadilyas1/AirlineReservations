@@ -4,34 +4,42 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<br />
+<br />
+<div class="container">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6 offset-sm-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="text-center">Creați o nouă companie aeriană</h5>
+                    </div>
+                    <div class="card-body">
+                        <form asp-action="Create">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="Airlinecode" class="control-label"></label>
+                                <input asp-for="Airlinecode" placeholder="Codul companiei aeriene" class="form-control" />
+                                <span asp-validation-for="Airlinecode" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="AirlineName" class="control-label"></label>
+                                <input asp-for="AirlineName" placeholder="Numele companiei aeriene" class="form-control" />
+                                <span asp-validation-for="AirlineName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Crea" style="margin-top:20px" class="btn btn-success" />
+                            </div>
+                        </form>
+                    </div>
+                   
+                </div>
 
-<h4>Airline</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Airlinecode" class="control-label"></label>
-                <input asp-for="Airlinecode" class="form-control" />
-                <span asp-validation-for="Airlinecode" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="AirlineName" class="control-label"></label>
-                <input asp-for="AirlineName" class="form-control" />
-                <span asp-validation-for="AirlineName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

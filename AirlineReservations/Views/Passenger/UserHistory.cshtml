@@ -1,1 +1,86 @@
-﻿
+﻿@model IEnumerable<AirlineReservations.ViewModel.PassangerViewModel>
+@{
+    ViewData["Title"] = "UserHistory";
+}
+
+<br />
+<br />
+<div class="container">
+    <p>
+        Utilizatorul poate doar să-și vizualizeze detaliile și să anuleze comanda de bilet
+    </p>
+
+    <br />
+
+
+
+    <div class="col-md-12">
+
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <div class="card">
+
+                    <div class="card-header">
+                        <h4 class="text-center">Istoricul biletelor</h4>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-hover table-bordered">
+                            <tr class="text-center">
+                                <th>
+                                    Nume
+                                </th>
+                                <th>Numele companiei aeriene</th>
+                                <th>Plecare</th>
+                                <th>Sosire</th>
+                                <th>Tipul clasei</th>
+
+                                <th>Data Plecării Ora</th>
+                                <th>Preț</th>
+                                <th>stare</th>
+                                <th>Acțiune</th>
+
+                            </tr>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr class="text-center">
+                                    <td>@item.PassengerName</td>
+
+
+                                    <td>@item.AirlineName</td>
+
+                                    <td>@item.TicketFrom</td>
+                                    <td>@item.TicketTo</td>
+                                    <td>@item.AirlineClassType</td>
+                                    <td>@item.TicketTimeTo</td>
+                                    <td>@item.TicketPrice $</td>
+                                    <td>@item.Status</td>
+                                    <td>
+                                        @if (item.Status != "Cancel")
+                                        {
+                                            <a asp-action="CancelOrder" asp-route-id="@item.BookingDetialsId" class="btn btn-primary">Anulează acum</a>
+                                        }
+                                        else if (item.Status == "Confirm")
+                                        {
+                                         <a href="javascript:void(0);" class="btn btn-success">Confirmați biletul</a>
+                                        }
+                                        else
+                                        {
+                                           <a href="javascript:void(0);" class="btn btn-success">Biletul este deja anulat</a>
+                                        }
+
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
